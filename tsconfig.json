@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": ["es2018","es2019", "esnext.asynciterable"],
+    "module": "commonjs",
+    "outDir": "dist",
+    "moduleResolution": "node",
+
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noEmit": false,  
+    "inlineSourceMap": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+  },   
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

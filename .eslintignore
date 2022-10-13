@@ -1,0 +1,3 @@
+*.js
+build/*.js  
+craco.config.jstailwind.config.js

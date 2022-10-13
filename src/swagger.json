@@ -1,0 +1,18 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API Service",
+    "version": "1.0.0",
+    "title": "API"
+  },
+  "host": "localhost:8080",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "PostModule",
+      "description": "Post operations"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {}
+}
