@@ -3,10 +3,45 @@ import dayjs from 'dayjs';
 import {MtResponse, MtRequest, StatusCode} from '../types';
 import {connect, disconnect} from '../drivers/database';
 import {TokenConfig} from '../middlewares';
+const Joi = require('@hapi/joi');
+
+const schema = Joi.object().keys({
+  userName: Joi.string().required().empty().min(3).max(20).messages({
+    'string.base': `userName should be a type of 'text'`,
+    'string.empty': `userName cannot be an empty field`,
+    'string.min': `userName should have a minimum length of {#limit}`,
+    'string.max': `userName should have a maximum length of {#limit}`,
+    'any.required': `userName is a required field`,
+  }),
+  title: Joi.string().required().empty().min(3).max(20).messages({
+    'string.empty': `title cannot be an empty field`,
+    'string.min': `title should have a minimum length of {#limit}`,
+    'string.max': `title should have a maximum length of {#limit}`,
+    'any.required': `title is a required field`,
+  }),
+  description: Joi.string().required().empty().min(10).max(3000).messages({
+    'any.required': `description is a required field`,
+    'string.empty': `description cannot be an empty field`,
+    'string.min': `description should have a minimum length of {#limit}`,
+    'string.max': `description should have a maximum length of {#limit}`,
+  }),
+  tab: Joi.string().required().messages({
+    'any.required': `tab is a required field`,
+  }),
+});
 
 class _PostController {
   public async create(request: MtRequest<any>): Promise<MtResponse<any>> {
     let body = request.body;
+    const {error} = schema.validate(body);
+    if (error)
+      return {
+        statusCode: 402,
+        body: {
+          status: 'error',
+          message: error.message,
+        },
+      };
     try {
       const db = connect();
       body = {
@@ -82,7 +117,9 @@ class _PostController {
   public async findByTitle(request: MtRequest<any>): Promise<MtResponse<any>> {
     try {
       const db = connect();
-      let posts = await db.PostModel.find({title: request.body.title}).sort({
+      const filter: any = [];
+      filter.push({title: {$regex: request.body.title, $options: 'i'}});
+      let posts = await db.PostModel.find({$and: filter}).sort({
         _id: -1,
       });
       return {
@@ -141,8 +178,6 @@ class _PostController {
     try {
       const db = connect();
       const body = request.body;
-      console.log({body});
-
       const update = await db.PostModel.updateMany({_id: body.id}, {...body});
       return {
         statusCode: StatusCode.SUCCESS,

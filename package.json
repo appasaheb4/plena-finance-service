@@ -15,6 +15,7 @@
   "dependencies": {
     "-": "^0.0.1",
     "@azure/storage-blob": "^12.4.0",
+    "@hapi/joi": "^17.1.1",
     "@nemospeculo/express-sanitized": "^1.0.1",
     "@sendgrid/mail": "^7.4.2",
     "@supercharge/request-ip": "^1.1.2",
@@ -37,6 +38,7 @@
     "ioredis": "^4.17.3",
     "is-ip": "^3.1.0",
     "jimp": "^0.16.1",
+    "joi": "^17.6.3",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
     "lodash": "^4.17.21",
